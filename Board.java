@@ -15,10 +15,10 @@ public class Board extends JPanel{
 	private int leftMargin = 200;
 	private int topMargin = 100;
 	private int square = 50; //マスのサイズ
-	int turn = 1; //手番(1:黒, 2:白)
-	int winner = 0; //勝者(0:未定, 1:黒, 2:白)
-	int screen = 0; //画面モード(0:タイトル, 1:プレイ, 2:終了)
-	int[][] pieces = new int[8][8]; //コマの配置
+	private int turn = 1; //手番(1:黒, 2:白)
+	private int winner = 0; //勝者(0:未定, 1:黒, 2:白)
+	private int screen = 0; //画面モード(0:タイトル, 1:プレイ, 2:終了)
+	private int[][] pieces = new int[8][8]; //コマの配置
 	
 	public Board() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -132,7 +132,7 @@ public class Board extends JPanel{
 		}
 	}
 	
-	public void startGame() {
+	private void startGame() {
 		turn = 1;
 		winner = 0;
 		for (int i=0; i<8; i++) {
@@ -146,12 +146,12 @@ public class Board extends JPanel{
 		pieces[4][3] = 2;
 	}
 	
-	public int opponentTurn(int turn) {
+	private int opponentTurn(int turn) {
 		if (turn==1) return 2;
 		else return 1;
 	}
 	
-	public int countSandwich(int row, int col, int turn, int dx, int dy) {
+	private int countSandwich(int row, int col, int turn, int dx, int dy) {
 		int count = 0;
 		int x = col + dx;
 		int y = row + dy;
@@ -168,7 +168,7 @@ public class Board extends JPanel{
 		return 0;
 	}
 	
-	public int countCanPut(int turn) {
+	private int countCanPut(int turn) {
 		int count = 0;
 		for (int i=0; i<8; i++) {
 			for (int j=0; j<8; j++) {
@@ -179,7 +179,7 @@ public class Board extends JPanel{
 		return count;
 	}
 	
-	public int judge() {
+	private int judge() {
 		if (countCanPut(1)==0 && countCanPut(2)==0) {
 			int numB = countOwnPieces(1);
 			int numW = countOwnPieces(2);
@@ -191,7 +191,7 @@ public class Board extends JPanel{
 		return 0; //未決着
 	}
 	
-	public boolean canPut(int row, int col, int turn) {
+	private boolean canPut(int row, int col, int turn) {
 		if (pieces[row][col]!=0) return false;
 		
 		for (int x=-1; x<2; x++) {
@@ -204,7 +204,7 @@ public class Board extends JPanel{
 		return false;
 	}
 	
-	public void put(int row, int col, int turn) {
+	private void put(int row, int col, int turn) {
 		pieces[row][col] = turn;
 		for (int i=0; i<8; i++) {
 			for (int x=-1; x<2; x++) {
@@ -217,7 +217,7 @@ public class Board extends JPanel{
 		}
 	}
 	
-	public void flip(int row, int col, int dx, int dy, int count) {
+	private void flip(int row, int col, int dx, int dy, int count) {
 		int x = col + dx;
 		int y = row + dy;
 		

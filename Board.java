@@ -228,7 +228,7 @@ public class Board extends JPanel{
 		}
 	}
 	
-	public int countOwnPieces(int turn) {
+	private int countOwnPieces(int turn) {
 		int count = 0;
 		
 		for (int x=0; x<8; x++) {
